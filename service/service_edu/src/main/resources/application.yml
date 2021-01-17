@@ -1,0 +1,28 @@
+server:
+  port: 8001
+spring:
+  application:
+    name: service-edu
+  profiles:
+    active: dev
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://47.102.197.42:3306/education?serverTimezone=GMT%2B8
+    username: root
+    password: 123456
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+
+#mybatis日志
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  mapper-locations: classpath:mapper/*.xml
+  global-config:
+    db-config:
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+      logic-delete-field: isDelete
+
