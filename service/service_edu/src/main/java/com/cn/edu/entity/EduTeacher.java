@@ -1,5 +1,8 @@
 package com.cn.edu.entity;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
+
 import java.time.LocalDateTime;
 import java.io.Serializable;
 import java.util.Date;
@@ -45,16 +48,19 @@ public class EduTeacher implements Serializable {
     /**
      * 逻辑删除, 1(true)已删除 2(false)未删除
      */
-    private Boolean isDelete;
+    @TableField(fill = FieldFill.INSERT)
+    private Integer isDelete;
 
     /**
      * 创建时间
      */
+    @TableField(fill = FieldFill.INSERT)
     private Date gmtCreate;
 
     /**
      * 更新时间
      */
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     private Date gmtModified;
 
     public String getId() {
@@ -105,11 +111,11 @@ public class EduTeacher implements Serializable {
         this.avatar = avatar;
     }
 
-    public Boolean getDelete() {
+    public Integer getDelete() {
         return isDelete;
     }
 
-    public void setDelete(Boolean delete) {
+    public void setDelete(Integer delete) {
         isDelete = delete;
     }
 
