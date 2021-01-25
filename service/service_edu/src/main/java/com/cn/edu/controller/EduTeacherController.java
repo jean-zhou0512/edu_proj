@@ -87,21 +87,24 @@ public class EduTeacherController {
 
             QueryWrapper<EduTeacher> teacherWrapper = new QueryWrapper<>();
 
-            if(StringUtils.isNotBlank(teacherQuery.getName())){
-                teacherWrapper.like("name",teacherQuery.getName());
+            if(teacherQuery != null){
+                if(StringUtils.isNotBlank(teacherQuery.getName())){
+                    teacherWrapper.like("name",teacherQuery.getName());
+                }
+
+                if(teacherQuery.getLevel() != null && teacherQuery.getLevel() != 0){
+                    teacherWrapper.eq("level",teacherQuery.getLevel());
+                }
+
+                if (StringUtils.isNotBlank(teacherQuery.getBeginTime())){
+                    teacherWrapper.ge("gmt_create",teacherQuery.getBeginTime());
+                }
+
+                if(StringUtils.isNotBlank(teacherQuery.getEndTime())){
+                    teacherWrapper.le("gmt_create",teacherQuery.getEndTime());
+                }
             }
 
-            if(teacherQuery.getLevel() != null && teacherQuery.getLevel() != 0){
-                teacherWrapper.eq("level",teacherQuery.getLevel());
-            }
-
-            if (StringUtils.isNotBlank(teacherQuery.getBeginTime())){
-                teacherWrapper.ge("gmt_create",teacherQuery.getBeginTime());
-            }
-
-            if(StringUtils.isNotBlank(teacherQuery.getEndTime())){
-                teacherWrapper.le("gmt_create",teacherQuery.getEndTime());
-            }
             Page<EduTeacher> page = eduTeacherService.page(pageTeacher, teacherWrapper);
             return Result
                     .ok()
@@ -121,11 +124,6 @@ public class EduTeacherController {
     public Result qryTeacherById(
             @ApiParam(name = "id",value = "讲师ID",required = true)
             @PathVariable String id){
-        try{
-            int age = 10/0;
-        }catch (Exception e){
-            throw new CustomException(ResultCodeEnum.ERROR.getCode(),"自定义异常信息...");
-        }
         EduTeacher teacher = eduTeacherService.getById(id);
         return Result.ok().data("teacher",teacher);
     }
