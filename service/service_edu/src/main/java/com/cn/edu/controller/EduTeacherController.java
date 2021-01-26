@@ -4,18 +4,22 @@ package com.cn.edu.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.cn.edu.entity.EduTeacher;
+import com.cn.edu.entity.SysDict;
+import com.cn.edu.entity.model.MEduTeacher;
 import com.cn.edu.entity.vo.TeacherQuery;
 import com.cn.edu.service.IEduTeacherService;
-import com.cn.servicebase.exception.CustomException;
+import com.cn.edu.service.ISysDictService;
 import com.cn.utils.basics.Result;
-import com.cn.utils.enums.ResultCodeEnum;
+import com.cn.utils.enums.TeacherTitleEnum;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,6 +39,9 @@ import java.util.Map;
 public class EduTeacherController {
     @Autowired
     private IEduTeacherService eduTeacherService;
+
+    @Autowired
+    private ISysDictService sysDictService;
 
     @ApiOperation(value = "所有讲师列表")
     @GetMapping(value="qryAllTeacher")
@@ -83,7 +90,7 @@ public class EduTeacherController {
             @ApiParam(name = "teacherQuery",value = "查询条件",required = false)
             @RequestBody(required = false) TeacherQuery teacherQuery
             ){
-            Page<EduTeacher> pageTeacher = new Page<EduTeacher>();
+            Page<EduTeacher> pageTeacher = new Page<EduTeacher>(currentPage,pageSize);
 
             QueryWrapper<EduTeacher> teacherWrapper = new QueryWrapper<>();
 
@@ -106,9 +113,31 @@ public class EduTeacherController {
             }
 
             Page<EduTeacher> page = eduTeacherService.page(pageTeacher, teacherWrapper);
+            List<MEduTeacher> mEduTeacherList = new ArrayList<>();
+            //翻译
+            if(page.getRecords().size()>0){
+                String teacherTitle = TeacherTitleEnum.dictType;
+                QueryWrapper<SysDict> teaTitleWrapper = new QueryWrapper<>();
+                teaTitleWrapper.eq("dict_type",teacherTitle);
+                List<SysDict> sysDictList = sysDictService.list(teaTitleWrapper);
+
+                Map<Integer,String> teacherTitleMap = new HashMap<>();
+
+                for(SysDict sysDict : sysDictList){
+                    teacherTitleMap.put(sysDict.getDictValue(),sysDict.getDictValueName());
+                }
+
+                MEduTeacher mEduTeacher = null;
+                for(EduTeacher eduTeacher : page.getRecords()){
+                    mEduTeacher=new MEduTeacher();
+                    BeanUtils.copyProperties(eduTeacher,mEduTeacher);
+                    mEduTeacher.setLevelName(teacherTitleMap.get(eduTeacher.getLevel()));
+                    mEduTeacherList.add(mEduTeacher);
+                }
+            }
             return Result
                     .ok()
-                    .data("eduTeacherList",page.getRecords())
+                    .data("mEduTeacherList",mEduTeacherList)
                     .data("total",page.getTotal());
     }
 
