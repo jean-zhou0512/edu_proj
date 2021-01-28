@@ -112,6 +112,7 @@ public class EduTeacherController {
                 }
             }
 
+            teacherWrapper.orderByDesc("gmt_create");
             Page<EduTeacher> page = eduTeacherService.page(pageTeacher, teacherWrapper);
             List<MEduTeacher> mEduTeacherList = new ArrayList<>();
             //翻译
