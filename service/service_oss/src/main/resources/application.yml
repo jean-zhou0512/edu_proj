@@ -9,12 +9,4 @@ spring:
     active: dev #环境设置
 
 
-#阿里云oss
-#不同的服务器，地址不同
-aliyun:
-  oss:
-    file:
-      endpoint: oss-cn-shenzhen-internal.aliyuncs.com
-      keyid: LTAI4FyneQVjMoPatppoS8mA
-      keysecret: AXmUKq3j2nAaTX3T0tq99dQs8lqM8a
-      bucketname: zjm-edu-proj
+
