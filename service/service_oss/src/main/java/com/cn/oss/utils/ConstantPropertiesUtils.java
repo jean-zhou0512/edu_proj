@@ -11,7 +11,7 @@ public class ConstantPropertiesUtils implements InitializingBean { // Initializi
     private String endiPoint;
     @Value("${aliyun.oss.file.keyid}")
     private String keyId;
-    @Value("${aliyun.oss.file.keySecret}")
+    @Value("${aliyun.oss.file.keysecret}")
     private String keySecret;
     @Value("${aliyun.oss.file.bucketname}")
     private String bucketName;
@@ -27,5 +27,9 @@ public class ConstantPropertiesUtils implements InitializingBean { // Initializi
         KEY_ID=keyId;
         KEY_SECRET=keySecret;
         BUCKET_NAME=bucketName;
+        System.out.println(END_POINT);
+        System.out.println(KEY_ID);
+        System.out.println(KEY_SECRET);
+        System.out.println(BUCKET_NAME);
     }
 }

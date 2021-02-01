@@ -13,11 +13,8 @@ public class OssServiceImpl implements OssService {
 
     public String uploadAvatar(MultipartFile file){
         try{
-            int result = FileUploadUtils.upload(file.getName(),file.getInputStream());
-            if(result == -1){
-                return null;
-            }
-            String url = "https://"+ ConstantPropertiesUtils.BUCKET_NAME + "."+ConstantPropertiesUtils.END_POINT+"/"+file.getName();
+            String url = FileUploadUtils.upload(file.getOriginalFilename(),file.getInputStream());
+//            String url = "https://"+ ConstantPropertiesUtils.BUCKET_NAME + "."+ConstantPropertiesUtils.END_POINT+"/"+file.getOriginalFilename();
             return url;
         }catch (Exception e){
             log.error(e.getMessage());
