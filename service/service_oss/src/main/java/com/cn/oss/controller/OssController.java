@@ -13,7 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Api(description = "oss文件上传")
 @RestController
-@RequestMapping(value = "/service/oss")
+@RequestMapping(value = "/ossservice/oss")
 public class OssController {
 
     @Autowired
