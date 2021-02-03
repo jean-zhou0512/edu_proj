@@ -24,7 +24,7 @@ import java.util.List;
 @Api(description = "字典值管理")
 @RestController
 @RequestMapping("/eduservice/dict/")
-@CrossOrigin() //解决跨域注解
+//@CrossOrigin() //解决跨域注解
 public class SysDictController {
 
     @Autowired
