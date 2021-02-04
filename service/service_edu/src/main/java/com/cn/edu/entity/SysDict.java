@@ -1,18 +1,14 @@
 package com.cn.edu.entity;
 
-import java.time.LocalDateTime;
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
+
 import java.io.Serializable;
 import java.util.Date;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author zjm
@@ -22,7 +18,7 @@ public class SysDict implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-
+    private String dict_id;
 
 
     /**
@@ -132,5 +128,11 @@ public class SysDict implements Serializable {
         this.remark = remark;
     }
 
+    public String getDict_id() {
+        return dict_id;
+    }
 
+    public void setDict_id(String dict_id) {
+        this.dict_id = dict_id;
+    }
 }

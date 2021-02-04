@@ -11,4 +11,16 @@
 
     <artifactId>service_edu</artifactId>
 
+    <!-- https://mvnrepository.com/artifact/com.alibaba/easyexcel -->
+   <dependencies>
+       <dependency>
+           <groupId>com.alibaba</groupId>
+           <artifactId>easyexcel</artifactId>
+           <version>2.1.6</version>
+       </dependency>
+
+
+   </dependencies>
+
+
 </project>

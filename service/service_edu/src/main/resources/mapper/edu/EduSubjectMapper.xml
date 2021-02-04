@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cn.edu.mapper.EduSubjectMapper">
+
+    <resultMap id="MgrBaseResultMap" type="com.cn.edu.entity.extend.EduSubjectExt">
+        <result column="id" property="id" jdbcType="CHAR"></result>
+        <result column="title" property="title" jdbcType="VARCHAR"></result>
+        <result column="parent_id" property="parentId" jdbcType="CHAR"></result>
+        <result column="sort" property="sort" jdbcType="INTEGER"></result>
+        <collection property="nodes" column="id" ofType="com.cn.edu.entity.extend.EduSubjectExt"
+                    select="qrySubjectByParentId"></collection>
+    </resultMap>
+
+    <select id="qrySubjectTree" resultMap="MgrBaseResultMap">
+        select id, title,parent_id,sort from edu_subject where parent_id = '0'
+    </select>
+
+    <select id="qrySubjectByParentId" resultMap="MgrBaseResultMap" parameterType="java.lang.String">
+        select id, title,parent_id,sort from edu_subject
+        where parent_id = #{id}
+    </select>
+
+</mapper>
