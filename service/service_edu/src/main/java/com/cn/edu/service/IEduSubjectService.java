@@ -6,6 +6,7 @@ import com.cn.edu.entity.extend.EduSubjectExt;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -19,6 +20,6 @@ public interface IEduSubjectService extends IService<EduSubject> {
 
     public void batchImport(MultipartFile file,IEduSubjectService eduSubjectService);
 
-    public List<EduSubjectExt> qrySubjectTree();
+    public List<EduSubjectExt> qrySubjectTree(Map<String,Object> paramMap);
 
 }

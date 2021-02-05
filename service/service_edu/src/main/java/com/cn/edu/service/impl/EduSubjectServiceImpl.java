@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -45,7 +46,7 @@ public class EduSubjectServiceImpl extends ServiceImpl<EduSubjectMapper, EduSubj
     }
 
     @Override
-    public List<EduSubjectExt> qrySubjectTree() {
-        return eduSubjectMapper.qrySubjectTree();
+    public List<EduSubjectExt> qrySubjectTree(Map<String,Object> paramMap) {
+        return eduSubjectMapper.qrySubjectTree(paramMap);
     }
 }

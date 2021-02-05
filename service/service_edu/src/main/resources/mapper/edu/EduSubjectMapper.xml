@@ -11,8 +11,21 @@
                     select="qrySubjectByParentId"></collection>
     </resultMap>
 
-    <select id="qrySubjectTree" resultMap="MgrBaseResultMap">
-        select id, title,parent_id,sort from edu_subject where parent_id = '0'
+    <select id="qrySubjectTree" resultMap="MgrBaseResultMap" parameterType="java.util.Map">
+        select id, title,parent_id,sort from edu_subject
+        <where>
+            <if test="parentId != null">
+                and parent_id = #{parentId}
+            </if>
+
+            <if test="title != null and title != ''">
+                and title = #{title}
+            </if>
+
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+        </where>
     </select>
 
     <select id="qrySubjectByParentId" resultMap="MgrBaseResultMap" parameterType="java.lang.String">
