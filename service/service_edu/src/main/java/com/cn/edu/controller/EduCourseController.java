@@ -47,6 +47,10 @@ public class EduCourseController {
             return Result.error().message("课程专业ID不能为空");
         }
 
+        if(courseInfoVo.getSubjectParentId() == null || StringUtils.isBlank(courseInfoVo.getSubjectParentId())){
+            return Result.error().message("课程专业父级ID不能为空");
+        }
+
         if(courseInfoVo.getTitle() == null || StringUtils.isBlank(courseInfoVo.getTitle())){
             return Result.error().message("课程标题不能为空");
         }
