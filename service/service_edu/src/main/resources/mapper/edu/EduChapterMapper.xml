@@ -1,5 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cn.edu.mapper.EduChapterMapper">
+    <resultMap id="MgrBaseMap" type="com.cn.edu.entity.extend.EduChapterExt">
+        <result column="id" property="id" jdbcType="CHAR"/>
+        <result column="course_id" property="courseId" jdbcType="CHAR"/>
+        <result column="title" property="title" jdbcType="VARCHAR"/>
+        <result column="sort" property="sort" jdbcType="INTEGER"/>
+        <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP"/>
+        <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP"/>
+
+        <collection property="eduVideoList" column="id" ofType="com.cn.edu.entity.EduVideo"
+                    select="qryVedioByChapterId"></collection>
+    </resultMap>
+
+    <resultMap id="MgrVideoMap" type="com.cn.edu.entity.EduVideo">
+        <result column="id" property="id" jdbcType="CHAR"/>
+        <result column="course_id" property="courseId" jdbcType="CHAR"/>
+        <result column="chapter_id" property="chapterId" jdbcType="CHAR"/>
+        <result column="title" property="title" jdbcType="VARCHAR"/>
+        <result column="video_sourceId" property="videoSourceId" jdbcType="VARCHAR"/>
+        <result column="video_original_name" property="videoOriginalName" jdbcType="VARCHAR"/>
+        <result column="sort" property="sort" jdbcType="INTEGER"/>
+        <result column="play_count" property="playCount" jdbcType="INTEGER"/>
+        <result column="is_free" property="isFree" jdbcType="BOOLEAN"/>
+        <result column="duration" property="duration" jdbcType="FLOAT"/>
+        <result column="status" property="status" jdbcType="VARCHAR"/>
+        <result column="size" property="size" jdbcType="BIGINT"/>
+        <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP"/>
+        <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <select id="qryChapterByCourseId" resultMap="MgrBaseMap" parameterType="java.lang.String">
+        select * from  edu_chapter where course_id = #{courseId}
+    </select>
+
+    <select id="qryVedioByChapterId" resultMap="MgrVideoMap" parameterType="java.lang.String">
+        select * from edu_video where chapter_id = #{chapterId}
+    </select>
 
 </mapper>

@@ -1,7 +1,10 @@
 package com.cn.edu.mapper;
 
-import com.cn.edu.entity.EduChapter;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.cn.edu.entity.EduChapter;
+import com.cn.edu.entity.extend.EduChapterExt;
+
+import java.util.List;
 
 /**
  * <p>
@@ -12,5 +15,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @since 2021-02-05
  */
 public interface EduChapterMapper extends BaseMapper<EduChapter> {
+
+    List<EduChapterExt> qryChapterByCourseId(String courseId);
 
 }
