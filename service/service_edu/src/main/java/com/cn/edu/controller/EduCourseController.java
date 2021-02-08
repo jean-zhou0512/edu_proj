@@ -1,17 +1,22 @@
 package com.cn.edu.controller;
 
 
+import com.cn.edu.entity.EduCourse;
+import com.cn.edu.entity.EduCourseDescription;
+import com.cn.edu.entity.extend.EduChapterExt;
 import com.cn.edu.entity.vo.CourseInfoVo;
+import com.cn.edu.service.IEduChapterService;
+import com.cn.edu.service.IEduCourseDescriptionService;
 import com.cn.edu.service.IEduCourseService;
 import com.cn.utils.basics.Result;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * <p>
@@ -23,11 +28,17 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Api(description = "课程管理")
 @RestController
-@RequestMapping("/eduservice/course")
+@RequestMapping("/eduservice/course/")
 public class EduCourseController {
 
     @Autowired
     private IEduCourseService eduCourseService;
+
+    @Autowired
+    private IEduChapterService eduChapterService;
+
+    @Autowired
+    private IEduCourseDescriptionService eduCourseDescriptionService;
 
     @PostMapping(value = "addCourse")
     public Result addCourse(
@@ -73,5 +84,16 @@ public class EduCourseController {
 
         eduCourseService.addCourse(courseInfoVo);
         return Result.ok();
+    }
+
+    @ApiOperation(value = "根据课程ID查询课程所有信息")
+    @GetMapping("qryCourseInfo/{courseId}")
+    public Result qryCourseInfo(
+            @ApiParam(value = "课程ID",name = "courseId",required = true)
+            @PathVariable String courseId){
+        EduCourse eduCourse = eduCourseService.getById(courseId);
+        EduCourseDescription eduCourseDescription = eduCourseDescriptionService.getById(courseId);
+        List<EduChapterExt> eduChapterList = eduChapterService.qryChapterByCourseId(courseId);
+        return Result.ok().data("eduCourse",eduCourse).data("eduCourseDescription",eduCourseDescription).data("eduChapterList",eduChapterList);
     }
 }
