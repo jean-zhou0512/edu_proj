@@ -58,7 +58,7 @@ public class EduVideo implements Serializable {
     /**
      * 是否可以试听：0收费 1免费
      */
-    private Boolean isFree;
+    private Integer isFree;
 
     /**
      * 视频时长（秒）
@@ -156,12 +156,12 @@ public class EduVideo implements Serializable {
         this.playCount = playCount;
     }
 
-    public Boolean getFree() {
+    public Integer getIsFree() {
         return isFree;
     }
 
-    public void setFree(Boolean free) {
-        isFree = free;
+    public void setIsFree(Integer isFree) {
+        this.isFree = isFree;
     }
 
     public Float getDuration() {

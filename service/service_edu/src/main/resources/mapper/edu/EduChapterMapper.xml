@@ -22,7 +22,7 @@
         <result column="video_original_name" property="videoOriginalName" jdbcType="VARCHAR"/>
         <result column="sort" property="sort" jdbcType="INTEGER"/>
         <result column="play_count" property="playCount" jdbcType="INTEGER"/>
-        <result column="is_free" property="isFree" jdbcType="BOOLEAN"/>
+        <result column="is_free" property="isFree" jdbcType="INTEGER"/>
         <result column="duration" property="duration" jdbcType="FLOAT"/>
         <result column="status" property="status" jdbcType="VARCHAR"/>
         <result column="size" property="size" jdbcType="BIGINT"/>
